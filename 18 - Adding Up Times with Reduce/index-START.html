@@ -177,11 +177,37 @@
     <li data-time="1:56">
       Video 57
     </li>
-    <li data-time="4:04">
+    <li data-time="4:06">
       Video 58
     </li>
   </ul>
 <script>
+
+const timeStamp = document.querySelectorAll('li');
+const timeArray = Array.from(timeStamp).map((time) => {
+  return time.dataset.time.split(':');
+}).map((time) => {
+  return parseFloat(time[0]*60) + parseFloat(time[1]);
+}).reduce((prevVal, currVal, index) => {
+  return currVal = (prevVal + currVal);
+},0); 
+
+let secondsLeft = timeArray;
+const hours = Math.floor(secondsLeft / 3600);
+console.log('secondsLeft', secondsLeft);
+
+secondsLeft = secondsLeft % 3600;
+console.log('secondsLeft', secondsLeft);
+
+
+const mins = Math.floor(secondsLeft / 60);
+secondsLeft = secondsLeft % 60;
+console.log('secondsLeft', secondsLeft);
+
+console.log(hours, mins, secondsLeft);
+
+
+
 </script>
 </body>
 </html>

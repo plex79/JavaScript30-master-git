@@ -58,6 +58,49 @@
       };
     }
 
+
+      const sliderImages = document.querySelectorAll('.slide-in');
+      // console.log('window height ',window.innerHeight);
+      // console.log('window scrollY ',window.scrollY);
+
+      function checkSlide(e) {
+
+      // console.log('window height ',window.innerHeight);
+      // console.log('window scrollY ',window.scrollY);
+      // console.log('window scrollY + window height ',window.scrollY + window.innerHeight);
+
+
+        sliderImages.forEach((sliderImage) => {
+          // console.log('image height /2', sliderImage.height / 2);
+          const slideInAt = (window.scrollY + window.innerHeight) - (sliderImage.height / 2);
+
+          // const imageTop = sliderImage.offsetTop;
+          // const imageHalf = sliderImage.offsetTop + (sliderImage.height/2);
+
+          const imageBottom = sliderImage.offsetTop + sliderImage.height;
+
+          const isHalfShown = slideInAt > sliderImage.offsetTop;
+          const isNoScrolledPast = window.scrollY < imageBottom;
+          
+
+          // console.log('slideInAt', slideInAt);
+          // console.log('imageTop', imageTop);
+          // console.log('imageHalf', imageHalf);
+          // console.log('imageBottom', imageBottom);
+
+          if(isHalfShown && isNoScrolledPast) {
+            sliderImage.classList.add('active');
+          } else {
+            sliderImage.classList.remove('active');
+          }
+        })
+
+
+
+      }
+
+      window.addEventListener('scroll', debounce(checkSlide));
+
   </script>
 
   <style>

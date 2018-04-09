@@ -8,6 +8,8 @@ const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player__slider');
 const timer = player.querySelector('.timer');
 
+const full = player.querySelector('.full');
+
 //timer.textContent = parseFloat(video.duration);
 
 function togglePlay() {
@@ -36,7 +38,8 @@ function handleRangeUpdate() {
 
 function handleProgress() {
     const percent = (video.currentTime / video.duration) * 100;
-    progressBar.style.flexBasis = `${percent}%`;
+    console.log(Math.floor(percent));
+    progressBar.value = Math.floor(percent);
 
     //time
     let time = video.currentTime;
@@ -55,12 +58,7 @@ function handleProgress() {
         sec = sec;
     }
     
-
-    //videoTime = min.substr(-2) + ":" + sec.substr(-2);
-    
     timer.textContent = min + ":" + sec;
-
-    
 }
 
 function scrub(e) {
@@ -68,6 +66,50 @@ function scrub(e) {
     console.log(e.offsetX, progress.offsetWidth, video.duration);
     video.currentTime = scrubTime;
 }
+
+
+let fullScreenMode=false;
+function fullscr(e) {
+    if(!fullScreenMode){
+        fullScreenMode=true;
+        // player.classList.add("full");
+        player.style.maxWidth = '100%';
+        player.style.width = '100%';
+
+        if (player.requestFullscreen) {
+            player.requestFullscreen();
+        } else if (player.mozRequestFullScreen) {
+            player.mozRequestFullScreen();
+        } else if (player.webkitRequestFullscreen) {
+            player.webkitRequestFullscreen();
+        } else if (player.msRequestFullscreen) { 
+            player.msRequestFullscreen();
+        }
+    }else{
+        fullScreenMode=false;
+        //player.classList.remove("full");
+        player.style.maxWidth = '750px';
+        player.style.width = '';
+
+        if (document.exitFullscreen) {
+              document.exitFullscreen();
+          } else if (document.webkitExitFullscreen) {
+              document.webkitExitFullscreen();
+          } else if (document.mozCancelFullScreen) {
+              document.mozCancelFullScreen();
+          } else if (document.msExitFullscreen) {
+              document.msExitFullscreen();
+          }
+    }
+}
+
+
+// function fullscrOff(e) {
+//     var keycode = ((typeof e.keyCode !='undefined' && e.keyCode) ? e.keyCode : e.which);
+//     if (keycode === 27) {
+//         video.classList.remove("full");
+//     };
+// }
 
 video.addEventListener('click', togglePlay);
 video.addEventListener('play', updateButton);
@@ -89,3 +131,6 @@ ranges.forEach((range) => {
 
 progress.addEventListener('click', scrub);
 
+full.addEventListener('click', fullscr);
+
+// document.addEventListener('keydown', fullscrOff);

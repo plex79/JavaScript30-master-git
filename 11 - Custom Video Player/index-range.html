@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>HTML Video Player</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-range.css">
 </head>
 <body>
 
@@ -11,9 +11,13 @@
      <video class="player__video viewer" src="masha.mp4" autoplay></video>
 
      <div class="player__controls">
+
        <div class="progress">
-        <div class="progress__filled"></div>
+         <input type="range" min="0" max="100"  class="progress__filled" id="myRange">
        </div>
+
+       
+
        <button class="player__button toggle" title="Toggle Play">►</button>
        
        <input type="range" name="volume" class="player__slider" min="0" max="1" step="0.05" value="1">
@@ -21,11 +25,13 @@
 
        <button data-skip="-10" class="player__button">« 10s</button>
        <button data-skip="25" class="player__button">25s »</button>
+       
        <div class="timer"></div>
+       <button class="player__button full">F</button>
      </div>
    </div>
 
-  <script src="scripts.js"></script>
+  <script src="scripts-range.js"></script>
 </body>
 </html>
 
